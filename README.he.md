@@ -114,6 +114,6 @@ MIT — ראה [LICENSE](LICENSE).
 
 - [English](README.md) · [עברית](README.he.md)
 
-<div align="center">נוצר באהבה ❤️ על ידי <a href="https://github.com/daniel-malka-148">דניאל מלכה</a></div>
+<div align="center">נוצר באהבה ❤️ על ידי <a href="https://github.com/daniel-malka-148">דניאל מלכא</a></div>
 
 </div>
