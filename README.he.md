@@ -6,7 +6,9 @@
 [![Python 3.12](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/downloads/)
 [![רישיון MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-> **שומר על חשבון הטלגרם שלך פעיל.** אוטומציה חינמית של GitHub Actions ששולחת הודעה ל-Saved Messages שלך כל שבוע.
+> שומר על חשבון הטלגרם פעיל על ידי שליחת הודעה קצרה וחלקה ל-Saved Messages.
+
+הפרויקט הזה הוא אוטומציה פשוטה מבוססת GitHub Actions שמטרתה לשמור על חשבון טלגרם פעיל לאורך זמן. הוא תוכנן להיות קל להבנה, קל להרצה, וקל להתאמה לצרכים האישיים שלך.
 
 ---
 
