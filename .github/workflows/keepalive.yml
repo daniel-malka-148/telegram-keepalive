@@ -1,0 +1,31 @@
+name: Telegram Keep-Alive
+
+on:
+  schedule:
+    # Runs every Sunday at 10:00 UTC
+    - cron: "0 10 * * 0"
+  workflow_dispatch: # Allows manual trigger from the GitHub UI
+
+jobs:
+  keepalive:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run keep-alive script
+        env:
+          API_ID: ${{ secrets.API_ID }}
+          API_HASH: ${{ secrets.API_HASH }}
+          SESSION_STRING: ${{ secrets.SESSION_STRING }}
+          KEEPALIVE_MESSAGE: ${{ secrets.KEEPALIVE_MESSAGE }}
+        run: python keepalive.py
