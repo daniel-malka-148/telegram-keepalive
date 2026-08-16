@@ -1,289 +1,115 @@
 # 📱 Telegram Keep-Alive
 
-[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/daniel-malka-148/telegram-keepalive/keepalive.yml)](https://github.com/daniel-malka-148/telegram-keepalive/actions)
-[![Python Version](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/downloads/)
+[![Workflow Status](https://img.shields.io/github/actions/workflow/status/daniel-malka-148/telegram-keepalive/keepalive.yml)](https://github.com/daniel-malka-148/telegram-keepalive/actions)
+[![Python 3.12](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![GitHub Repo](https://img.shields.io/badge/GitHub-Repository-181717?logo=github)](https://github.com)
 
-> Keep your Telegram account active by sending a short, natural-looking message to your own Saved Messages.
-
-This project is a lightweight GitHub Actions automation that helps keep a Telegram account from appearing inactive. It is designed to be simple, transparent, and easy to run without a complicated interface.
-
-This is a CLI-based automation project rather than a full app, and that is intentional: the real value is in its simplicity, reliability, and easy setup process.
+> **Keep your Telegram account alive.** A free, automated GitHub Actions workflow that sends a message to your Saved Messages every week.
 
 ---
 
-## ✨ Why this project is useful
+## ⚡ How it works
 
-- Runs for free on GitHub Actions
-- Fully automated after setup
-- Lightweight and easy to understand
-- Easy to fork and customize
-- Minimal dependencies and a clean workflow
-
----
-
-## ⚠️ Before you start
-
-This project uses your Telegram API credentials and session string. Those values are sensitive and should be handled like passwords.
-
-- Never upload `session.txt` or any Telegram session file to GitHub
-- Keep credentials in GitHub Secrets only
-- Do not share your API hash or session string with anyone
-- Use this project at your own risk
-- Telegram may restrict or disable accounts that show unusual automated behavior
-
----
-
-## 🧭 Quick start checklist
-
-Use this workflow in order:
-
-1. Download or clone the repository
-2. Install the Python dependency
-3. Create a Telegram session string locally
-4. Add API credentials and session string as GitHub secrets
-5. Trigger the workflow once to validate it
-6. Let GitHub Actions handle it automatically from then on
-
----
-
-## 🧠 How it works
-
-```text
-GitHub schedule
-    ↓
-GitHub Actions
-    ↓
-keepalive.py
-    ↓
-Telegram API
-    ↓
-Saved Messages
+```
+GitHub Schedule ──▶ GitHub Actions ──▶ keepalive.py ──▶ Telegram Saved Messages
 ```
 
-1. GitHub Actions runs the workflow on a schedule or manually.
-2. The workflow installs the required Python packages.
-3. The script connects to Telegram using your API credentials and session string.
-4. It waits a random short delay and sends a message to your own Saved Messages.
-5. The account remains active and avoids looking abandoned.
+1. GitHub Actions runs the workflow **every Sunday at 10:00 UTC** (or manually).
+2. The script connects to Telegram using your credentials.
+3. It sends a short message to your own **Saved Messages**.
+4. Your account stays active — no more risk of deletion.
 
 ---
 
-## 🚀 Features
+## 🚀 Setup
 
-- ✅ Free GitHub-hosted automation
-- ✅ Weekly or custom cron scheduling
-- ✅ Randomized delay before sending
-- ✅ Random message selection from a built-in list
-- ✅ Support for custom messages via secret
-- ✅ Very small project footprint and easy onboarding
+### 1. Create a session string
 
----
-
-## 📦 Prerequisites
-
-Before you get started, make sure you have:
-
-1. A Telegram account
-2. API credentials from [my.telegram.org](https://my.telegram.org)
-   - `api_id`
-   - `api_hash`
-3. Python 3.12+
-4. A GitHub account
-
----
-
-## 🛠 Quick start
-
-### Step 1: Create a session string
-
-Run this once on your local machine:
+Run this once on your computer:
 
 ```bash
 pip install -r requirements.txt
 python create_session.py
 ```
 
-The script will ask for:
+The script will ask for your API credentials (from [my.telegram.org](https://my.telegram.org)), phone number, and verification code. It saves the session string to `session.txt`.
 
-1. API ID
-2. API HASH
-3. Phone number with country code
-4. Telegram verification code
-5. 2FA password if enabled
+> ⚠️ **The session string is a password to your account. Never share it, never commit it.**
 
-At the end, it will print the session string and save it to `session.txt`.
+### 2. Add GitHub secrets
 
-> The session string is a real credential. Keep it private.
+In your repository, go to **Settings → Secrets and variables → Actions** and add:
 
-### Step 2: Clone or fork the repository
-
-```bash
-git clone https://github.com/YOUR_USERNAME/telegram-keepalive.git
-cd telegram-keepalive
-```
-
-### Step 3: Add your GitHub secrets
-
-Go to:
-
-Settings → Secrets and variables → Actions → New repository secret
-
-Add the following:
-
-| Secret name | Value |
+| Secret | Description |
 |---|---|
 | `API_ID` | Your Telegram API ID |
 | `API_HASH` | Your Telegram API HASH |
-| `SESSION_STRING` | The session string created in Step 1 |
+| `SESSION_STRING` | The session string from step 1 |
 
-Optional values:
+### 3. Run the workflow
 
-| Secret name | Value |
-|---|---|
-| `KEEPALIVE_MESSAGE` | Message text or multiple values separated by `||` |
-| `KEEPALIVE_MIN_DELAY_SECONDS` | Minimum delay before sending, for example `5` |
-| `KEEPALIVE_MAX_DELAY_SECONDS` | Maximum delay before sending, for example `60` |
+Trigger it manually once to test:
 
-### Step 4: Run the workflow
+1. Open the **Actions** tab
+2. Select **Telegram Keep-Alive**
+3. Click **Run workflow** → **Run workflow**
+4. Check the logs — it should complete in ~1 minute ✅
 
-The workflow is already configured in `.github/workflows/keepalive.yml`.
-
-You can either:
-
-- wait for the scheduled job to run, or
-- trigger it manually in the GitHub Actions tab
-
-For a quick test:
-
-1. Open the repository on GitHub
-2. Go to the Actions tab
-3. Select Telegram Keep-Alive
-4. Click Run workflow
-5. Check the logs after a few minutes
+After that, it runs automatically every Sunday.
 
 ---
 
-## 🎯 Customization ideas
+## 🎨 Customization
 
-### Randomized messages
+All settings are optional.
 
-You can set a random pool of messages by using `||` separators:
+| Secret | What it does | Example |
+|---|---|---|
+| `KEEPALIVE_MESSAGE` | Custom message(s). Use `\|\|` for multiple. | `"Still alive \|\| Weekly ping"` |
+| `KEEPALIVE_MIN_DELAY_SECONDS` | Min random delay before sending | `5` |
+| `KEEPALIVE_MAX_DELAY_SECONDS` | Max random delay before sending | `60` |
 
-```bash
-KEEPALIVE_MESSAGE="Checking in || Still active || Weekly ping || All good here"
-```
-
-If the secret is not set, the script picks one message from the built-in list automatically.
-
-### Less predictable scheduling
-
-Instead of a fixed weekly run, you can change the cron expression in `.github/workflows/keepalive.yml`.
-
-Example:
-
-```yaml
-- cron: "0 6,12,18 * * *"
-```
-
-This creates a more natural-looking pattern than a single rigid schedule.
-
-### Random delay
-
-You can tune the action timing with:
-
-```bash
-KEEPALIVE_MIN_DELAY_SECONDS=5
-KEEPALIVE_MAX_DELAY_SECONDS=60
-```
-
-This makes each run feel less robotic.
+**Schedule:** edit the `cron` line in [`.github/workflows/keepalive.yml`](.github/workflows/keepalive.yml).
 
 ---
 
-## 📁 Project structure
+## 📁 Structure
 
-```text
-telegram-keepalive/
-├── .github/
-│   └── workflows/
-│       └── keepalive.yml
-├── .gitignore
-├── CONTRIBUTING.md
-├── LICENSE
-├── README.md
-├── README.he.md
-├── SECURITY.md
-├── .env.example
-├── create_session.py
-├── keepalive.py
-├── requirements.txt
-├── session.txt
-└── telegram-keepalive/
-    └── keepalive.py
+```
+├── .github/workflows/keepalive.yml   # GitHub Actions workflow
+├── keepalive.py                      # Main script
+├── create_session.py                 # One-time session generator
+├── requirements.txt                  # Dependencies
+├── .gitignore                        # Protects session.txt 🔒
+└── LICENSE                           # MIT
 ```
 
 ---
 
 ## ❓ FAQ
 
-### Is it really free?
-Yes. GitHub Actions is often sufficient for this kind of lightweight workflow.
+**Is it free?** Yes — GitHub Actions free tier covers this easily.
 
-### Is it safe?
-This script sends a real message to your own private Saved Messages. It is not a spam bot and does not contact random users. However, Telegram may still detect unusual automation patterns.
+**Is it safe?** It sends one message per week to your own Saved Messages. That said, automated activity may violate Telegram's ToS — use at your own risk.
 
-### What if the workflow fails?
-Open the failing run in the Actions tab and inspect the logs. The most common cause is an invalid session string or missing secret.
-
-### Can I modify the schedule?
-Yes. Edit the cron expression in `.github/workflows/keepalive.yml`.
-
-### Can I customize the message pool?
-Yes. Use the `KEEPALIVE_MESSAGE` secret with multiple values separated by `||`.
-
----
-
-## 🔐 Security
-
-This project keeps secrets out of source control and expects them to live in GitHub secrets instead.
-
-Recommended practices:
-
-- Never commit your session string
-- Keep `.env` files private
-- Do not expose secrets in logs or issues
-- Rotate or regenerate the session if you suspect it has been exposed
-
-See [SECURITY.md](SECURITY.md) for the security policy.
+**The workflow failed. What now?** Open the run logs. Most common cause: wrong `SESSION_STRING` or missing secrets.
 
 ---
 
 ## ⚠️ Disclaimer
 
-Use this project at your own risk.
-
-- It relies on the Telethon library to communicate with the Telegram API
-- Automated account activity may violate Telegram terms or trigger restrictions
-- The author is not responsible for any consequences arising from the use of this software
-- The project is provided as-is, without any warranty
+This project uses [Telethon](https://github.com/LonamiWebs/Telethon) and automates account activity. Telegram may restrict accounts showing automated behavior. **Use at your own risk.**
 
 ---
 
 ## 📄 License
 
-This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
+MIT — see [LICENSE](LICENSE).
 
 ---
 
 ## 🌐 Languages
 
-- [English](README.md)
-- [עברית](README.he.md)
+- [English](README.md) · [עברית](README.he.md)
 
----
-
-<div align="center">
-  Made with ❤️ by <a href="https://github.com/daniel-malka-148">Daniel Malka</a>
-</div>
+<div align="center">Made with ❤️ by <a href="https://github.com/daniel-malka-148">Daniel Malka</a></div>

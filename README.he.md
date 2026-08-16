@@ -2,292 +2,118 @@
 
 # 📱 Telegram Keep-Alive
 
-[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/daniel-malka-148/telegram-keepalive/keepalive.yml)](https://github.com/daniel-malka-148/telegram-keepalive/actions)
-[![Python Version](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/downloads/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![GitHub Repo](https://img.shields.io/badge/GitHub-Repository-181717?logo=github)](https://github.com)
+[![סטטוס Workflow](https://img.shields.io/github/actions/workflow/status/daniel-malka-148/telegram-keepalive/keepalive.yml)](https://github.com/daniel-malka-148/telegram-keepalive/actions)
+[![Python 3.12](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/downloads/)
+[![רישיון MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-> שומר על חשבון הטלגרם פעיל על ידי שליחת הודעה קצרה וחלקה ל-Saved Messages.
-
-הפרויקט הזה הוא אוטומציה פשוטה מבוססת GitHub Actions שמטרתה לשמור על חשבון טלגרם פעיל לאורך זמן. הוא תוכנן להיות קל להבנה, קל להרצה, וקל להתאמה לצרכים האישיים שלך.
-
-זהו פרויקט CLI, ולא אפליקציה מלאה, וזה גם הכיוון הנכון: הפשטות וההבנה של התהליך חשובים יותר מאשר ממשק גרפי מורכב.
+> **שומר על חשבון הטלגרם שלך פעיל.** אוטומציה חינמית של GitHub Actions ששולחת הודעה ל-Saved Messages שלך כל שבוע.
 
 ---
 
-## ✨ למה הפרויקט הזה שימושי
+## ⚡ איך זה עובד
 
-- רץ בחינם על GitHub Actions
-- מופעל אוטומטית אחרי ההגדרה הראשונית
-- קל להבנה ולתחזוקה
-- קל לשכפל ולהתאים אישית
-- תלויות מינימליות וזרימת עבודה פשוטה
-
----
-
-## ⚠️ לפני שמתחילים
-
-הפרויקט משתמש ב-Session String ובפרטי API של טלגרם. ערכים אלה רגישים וצריך להתייחס אליהם כמו לסיסמאות.
-
-- לעולם אל להעלות ל-GitHub את קובץ `session.txt` או כל קובץ סשן של טלגרם
-- שמור סודות רק ב-GitHub Secrets
-- אל תשתף את ה-API HASH או את ה-Session String עם אף אחד
-- השתמש בפרויקט על אחריותך בלבד
-- טלגרם עשויה להגביל או להשבית חשבון אם היא מזהה התנהגות אוטומטית חריגה
-
----
-
-## 🧭 רשימת בדיקה מהירה
-
-השתמש בזרימה הזו לפי הסדר:
-
-1. הורד או שכפל את הריפו
-2. התקן את התלות של Python
-3. צור Session String מקומי
-4. הוסף את פרטי ה-API ואת ה-Session String ב-GitHub Secrets
-5. הפעל את ה-workflow פעם אחת כדי לבדוק
-6. תן ל-GitHub Actions להמשיך לבד אחר כך
-
----
-
-## 🧠 איך זה עובד
-
-```text
-לוח זמנים ב-GitHub
-    ↓
-GitHub Actions
-    ↓
-keepalive.py
-    ↓
-Telegram API
-    ↓
-Saved Messages
+```
+לוח זמנים ב-GitHub ──▶ GitHub Actions ──▶ keepalive.py ──▶ Saved Messages בטלגרם
 ```
 
-1. GitHub Actions מפעיל את ה-workflow לפי לוח זמנים או ידנית.
-2. ה-workflow מתקין את החבילות הנדרשות.
-3. הסקריפט מתחבר לטלגרם בעזרת API ID, API HASH ו-Session String.
-4. הוא מחכה מספר שניות אקראיות ואז שולח הודעה ל-Saved Messages.
-5. החשבון נשאר פעיל יותר ונראה ככזה.
+1. GitHub Actions מריץ את ה-workflow **כל יום ראשון בשעה 10:00 UTC** (או ידנית).
+2. הסקריפט מתחבר לטלגרם עם הפרטים שלך.
+3. הוא שולח הודעה קצרה ל-**Saved Messages** שלך.
+4. החשבון נשאר פעיל — אין יותר סיכון למחיקה.
 
 ---
 
-## 🚀 תכונות
+## 🚀 התקנה
 
-- ✅ אוטומציה בחינם ב-GitHub Actions
-- ✅ לוח זמנים שבועי או מותאם אישית
-- ✅ עיכוב אקראי לפני שליחה
-- ✅ בחירה אקראית של הודעה מרשימת הודעות מובנות
-- ✅ תמיכה בהודעה מותאמת דרך secret
-- ✅ מבנה קטן, פשוט וקל להתאמה
+### 1. יצירת Session String
 
----
-
-## 📦 דרישות מוקדמות
-
-לפני שמתחילים, וודא שיש לך:
-
-1. חשבון טלגרם
-2. פרטי API מ-[my.telegram.org](https://my.telegram.org)
-   - `api_id`
-   - `api_hash`
-3. Python 3.12+
-4. חשבון GitHub
-
----
-
-## 🛠 התחלה מהירה
-
-### שלב 1: יצירת Session String
-
-הרץ זאת פעם אחת במחשב המקומי:
+הרץ פעם אחת במחשב שלך:
 
 ```bash
 pip install -r requirements.txt
 python create_session.py
 ```
 
-הסקריפט יבקש:
+הסקריפט יבקש את פרטי ה-API שלך (מ-[my.telegram.org](https://my.telegram.org)), מספר טלפון וקוד אימות. הוא שומר את ה-Session String בקובץ `session.txt`.
 
-1. API ID
-2. API HASH
-3. מספר טלפון עם קידומת מדינה
-4. קוד אימות מטלגרם
-5. סיסמת 2FA אם היא מופעלת
+> ⚠️ **ה-Session String הוא סיסמה לחשבון שלך. לעולם אל תשתף אותו ואל תעלה אותו ל-GitHub.**
 
-בסוף, הוא יודפיס את ה-Session String וישמור אותו בקובץ `session.txt`.
+### 2. הוספת GitHub Secrets
 
-> ה-Session String הוא סיסמה אמיתית. שמור אותו בסוד.
+בריפו שלך, עבור אל **Settings → Secrets and variables → Actions** והוסף:
 
-### שלב 2: שכפול או Fork של הריפו
-
-```bash
-git clone https://github.com/YOUR_USERNAME/telegram-keepalive.git
-cd telegram-keepalive
-```
-
-### שלב 3: הוספת GitHub Secrets
-
-עבור אל:
-
-Settings → Secrets and variables → Actions → New repository secret
-
-הוסף את הדברים הבאים:
-
-| שם ה-secret | ערך |
+| Secret | תיאור |
 |---|---|
-| `API_ID` | ה-API ID של חשבון הטלגרם |
-| `API_HASH` | ה-API HASH של חשבון הטלגרם |
-| `SESSION_STRING` | ה-Session String שנוצר בשלב 1 |
+| `API_ID` | ה-API ID של טלגרם |
+| `API_HASH` | ה-API HASH של טלגרם |
+| `SESSION_STRING` | ה-Session String משלב 1 |
 
-ערכים אופציונליים:
+### 3. הפעלת ה-workflow
 
-| שם ה-secret | ערך |
-|---|---|
-| `KEEPALIVE_MESSAGE` | טקסט של הודעה או מספר הודעות מופרדות ב-`||` |
-| `KEEPALIVE_MIN_DELAY_SECONDS` | עיכוב מינימלי, למשל `5` |
-| `KEEPALIVE_MAX_DELAY_SECONDS` | עיכוב מקסימלי, למשל `60` |
+הפעל אותו ידנית פעם אחת כדי לבדוק:
 
-### שלב 4: הפעלת ה-workflow
+1. פתח את הטאב **Actions**
+2. בחר **Telegram Keep-Alive**
+3. לחץ **Run workflow** → **Run workflow**
+4. בדוק את הלוגים — זה אמור להסתיים בדקה ✅
 
-ה-workflow כבר מוגדר בקובץ `.github/workflows/keepalive.yml`.
-
-אפשר גם:
-
-- לחכות שהעבודה תרוץ לפי לוח זמנים, או
-- להפעיל אותה ידנית דרך הכרטיסייה Actions
-
-כדי לבדוק מהר:
-
-1. פתח את הריפו ב-GitHub
-2. עבור אל הכרטיסייה Actions
-3. בחר Telegram Keep-Alive
-4. לחץ Run workflow
-5. בדוק את הלוגים אחרי כמה דקות
+מעכשיו זה רץ אוטומטית כל יום ראשון.
 
 ---
 
-## 🎯 רעיונות להתאמה אישית
+## 🎨 התאמה אישית
 
-### הודעות אקראיות
+כל ההגדרות אופציונליות.
 
-אפשר להגדיר רשימת הודעות בעזרת `||`:
+| Secret | מה זה עושה | דוגמה |
+|---|---|---|
+| `KEEPALIVE_MESSAGE` | הודעה מותאמת. אפשר כמה עם `\|\|`. | `"עוד חי \|\| פינג שבועי"` |
+| `KEEPALIVE_MIN_DELAY_SECONDS` | עיכוב אקראי מינימלי | `5` |
+| `KEEPALIVE_MAX_DELAY_SECONDS` | עיכוב אקראי מקסימלי | `60` |
 
-```bash
-KEEPALIVE_MESSAGE="בודק אם הכול בסדר || עדיין חי || פינג שבועי || הכל בסדר פה"
-```
-
-אם ה-secret לא מוגדר, הסקריפט בוחר הודעה אקראית מרשימת ההודעות המובנות.
-
-### לוח זמנים פחות צפוי
-
-במקום להריץ כל שבוע באותו זמן, אפשר לשנות את הביטוי `cron` בקובץ `.github/workflows/keepalive.yml`.
-
-דוגמה:
-
-```yaml
-- cron: "0 6,12,18 * * *"
-```
-
-זה יוצר דפוס טבעי יותר מאשר לוח זמנים קשיח אחד.
-
-### עיכוב אקראי
-
-אפשר לשנות את זמני ההשהיה:
-
-```bash
-KEEPALIVE_MIN_DELAY_SECONDS=5
-KEEPALIVE_MAX_DELAY_SECONDS=60
-```
-
-כך כל הפעלה נראית פחות כמו תהליך בוטי.
+**לוח זמנים:** ערוך את שורת ה-`cron` בקובץ [`.github/workflows/keepalive.yml`](.github/workflows/keepalive.yml).
 
 ---
 
-## 📁 מבנה הפרויקט
+## 📁 מבנה
 
-```text
-telegram-keepalive/
-├── .github/
-│   └── workflows/
-│       └── keepalive.yml
-├── .gitignore
-├── CONTRIBUTING.md
-├── LICENSE
-├── README.md
-├── README.he.md
-├── SECURITY.md
-├── .env.example
-├── create_session.py
-├── keepalive.py
-├── requirements.txt
-├── session.txt
-└── telegram-keepalive/
-    └── keepalive.py
+```
+├── .github/workflows/keepalive.yml   # ה-workflow של GitHub Actions
+├── keepalive.py                      # הסקריפט הראשי
+├── create_session.py                 # יצירת Session String (פעם אחת)
+├── requirements.txt                  # תלויות
+├── .gitignore                        # מגן על session.txt 🔒
+└── LICENSE                           # MIT
 ```
 
 ---
 
 ## ❓ שאלות נפוצות
 
-### האם זה באמת חינמי?
-כן. GitHub Actions מספיק לרוב תהליכי עבודה קלים כאלה.
+**האם זה חינמי?** כן — המכסה החינמית של GitHub Actions מספיקה בקלות.
 
-### האם זה בטוח?
-הסקריפט שולח הודעה אמיתית רק ל-Saved Messages הפרטי שלך. הוא לא בוט ספאם ולא פונה למשתמשים אקראיים. עם זאת, טלגרם עדיין עשויה לזהות דפוסי אוטומציה חריגים.
+**האם זה בטוח?** הוא שולח הודעה אחת בשבוע ל-Saved Messages שלך. עם זאת, פעילות אוטומטית עלולה להפר את תנאי השימוש של טלגרם — השתמש על אחריותך.
 
-### מה קורה אם ה-workflow נכשל?
-פתח את הריצה שנכשלה בכרטיסייה Actions וצפה בלוגים. הסיבה הנפוצה היא Session String לא תקין או Secret חסר.
-
-### האם אפשר לשנות את לוח הזמנים?
-כן. ערוך את הביטוי `cron` בקובץ `.github/workflows/keepalive.yml`.
-
-### האם אפשר לשנות את רשימת ההודעות?
-כן. השתמש ב-secret `KEEPALIVE_MESSAGE` עם מספר ערכים מופרדים ב-`||`.
-
----
-
-## 🔐 אבטחה
-
-הפרויקט שומר סודות מחוץ לקוד המקור ומצפה שהם יישמרו ב-GitHub Secrets.
-
-עקרונות מומלצים:
-
-- אל תשלח את ה-Session String ל-GitHub
-- שמור `.env` פרטי מקומי בסוד
-- אל תציג סודות בלוגים או ב-issues
-- אם יש חשש שה-session נחשף, צור אחד חדש
-
-ראה את [SECURITY.md](SECURITY.md) למדיניות אבטחה.
+**ה-workflow נכשל. מה לעשות?** פתח את הלוגים בריצה שנכשלה. הסיבה הנפוצה: `SESSION_STRING` שגוי או Secrets חסרים.
 
 ---
 
 ## ⚠️ כתב ויתור
 
-השתמש בפרויקט זה על אחריותך בלבד.
-
-- הוא מסתמך על הספרייה Telethon כדי לתקשר עם ה-API של טלגרם
-- פעילות אוטומטית בחשבון עלולה להפר תנאי שימוש של טלגרם או לגרום להגבלות
-- הכותב אינו אחראי לכל תוצאה הנובעת משימוש בתוכנה זו
-- הפרויקט מסופק כמות שהוא, ללא כל אחריות
+הפרויקט משתמש ב-[Telethon](https://github.com/LonamiWebs/Telethon) ומבצע פעילות אוטומטית בחשבון. טלגרם עלולה להגביל חשבונות שמראים התנהגות אוטומטית. **השתמש על אחריותך בלבד.**
 
 ---
 
 ## 📄 רישיון
 
-הפרויקט מופץ תחת רישיון MIT. ראה את [LICENSE](LICENSE) לפרטים.
+MIT — ראה [LICENSE](LICENSE).
 
 ---
 
 ## 🌐 שפות
 
-- [English](README.md)
-- [עברית](README.he.md)
+- [English](README.md) · [עברית](README.he.md)
 
----
-
-<div align="center">
-  נוצר באהבה ❤️ על ידי <a href="https://github.com/daniel-malka-148">דניאל מלכא</a>
-</div>
+<div align="center">נוצר באהבה ❤️ על ידי <a href="https://github.com/daniel-malka-148">דניאל מלכה</a></div>
 
 </div>
